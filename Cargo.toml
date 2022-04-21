@@ -9,4 +9,3 @@ authors = ["Anatoly Bugakov"]
 [dependencies]
 chrono = "0.4.19"
 thiserror = "1.0.30"
-backtrace = "0.3"
