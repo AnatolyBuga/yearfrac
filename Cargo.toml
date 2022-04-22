@@ -1,10 +1,13 @@
 [package]
 name = "yearfrac"
 version = "0.1.0"
-edition = "2021"
+edition = "2022"
 authors = ["Anatoly Bugakov"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT OR Apache-2.0"
+description = "Year fruction calculator for Rust"
+homepage = "https://github.com/AnatolyBug/yearfrac"
+repository = "https://github.com/AnatolyBug/yearfrac"
+keywords = ["date", "year", "fruction"]
 
 [dependencies]
 chrono = "0.4.19"
