@@ -1,9 +1,9 @@
 use yearfrac;
 use chrono::NaiveDate;
+use yearfrac::DayCountConvention;
 
 #[test]
 fn test_accuracy() {
-    use yearfrac::DayCountConvention;
     let delta = 1e-9;
 
     let start = NaiveDate::from_ymd(1978, 2, 28);
@@ -45,7 +45,15 @@ fn test_accuracy() {
 
 #[test]
 #[should_panic]
-fn test_bad_input () {
-    use yearfrac::DayCountConvention;
+fn test_bad_input_str () {
     DayCountConvention::from_str("wrongvalue").unwrap();
+}
+
+#[test]
+#[should_panic]
+fn test_bad_dates () {
+    let start = NaiveDate::from_ymd(2032, 4, 28);
+    let end = NaiveDate::from_ymd(2022, 5, 17);
+    DayCountConvention::from_str("act/act").unwrap()
+    .yearfrac(start, end);
 }

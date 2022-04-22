@@ -1,7 +1,7 @@
 [package]
 name = "yearfrac"
 version = "0.1.0"
-edition = "2022"
+edition = "2021"
 authors = ["Anatoly Bugakov"]
 license = "MIT OR Apache-2.0"
 description = "Year fruction calculator for Rust"
