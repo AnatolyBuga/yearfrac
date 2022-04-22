@@ -1,7 +1,19 @@
 //! # yearfrac
-//! `yearfrac` used to calculate fraction of a year between two dates. Currently those have to be chrono::NaiveDate.
+//! `yearfrac` is a rust crate used to calculate fraction of a year between two dates(chrono::NaiveDate).
 //! 
-//! Aims to match Excel's YEARFRAC function
+//! Supports all five Excel's daycount conventions:
+//! 
+//! nasd30/360 
+//! 
+//! act/act
+//! 
+//! act360  
+//!   
+//! act365 
+//!    
+//! eur30/360 
+//! 
+//! Tested to match Excel's YEARFRAC function
 //! # Examples
 //! ```rust
 //! use yearfrac::DayCountConvention;
@@ -241,6 +253,7 @@ impl DayCountConvention {
         self.days360(start_day, start_month, start_year, end_day, end_month, end_year)
     }
     
+/// NASD360 Needs work on methods (currently only Excel's third method)
     fn nasd360 (&self, start: NaiveDate, end: NaiveDate, method: u8, use_eom: bool) -> f64{
         let (mut start_day, start_month, start_year) = (start.day(), start.month(), start.year());
         let (mut end_day, end_month, end_year) = (end.day(), end.month(), end.year());
