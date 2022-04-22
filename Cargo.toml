@@ -7,6 +7,7 @@ license = "MIT OR Apache-2.0"
 description = "Year fruction calculator for Rust"
 homepage = "https://github.com/AnatolyBug/yearfrac"
 repository = "https://github.com/AnatolyBug/yearfrac"
+documentation = "https://docs.rs/yearfrac/"
 keywords = ["date", "year", "fruction"]
 
 [dependencies]
