@@ -35,6 +35,7 @@
 use chrono::{NaiveDate, Datelike};
 use std::str::FromStr;
 use thiserror::Error;
+use serde::{Serialize, Deserialize};
 
 /// #Examples
 /// ```rust
@@ -78,7 +79,7 @@ pub fn is_end_of_month (day: u32, month: u32, year: i32) -> bool {
 }
 
 
-#[derive(Hash, Clone, Copy, Debug)] 
+#[derive(Hash, Clone, Copy, Debug, Serialize, Deserialize)] 
 pub enum DayCountConvention {
     US30360,
     ActAct,

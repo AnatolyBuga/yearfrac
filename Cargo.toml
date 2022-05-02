@@ -13,3 +13,4 @@ keywords = ["date", "year", "fruction"]
 [dependencies]
 chrono = "0.4.19"
 thiserror = "1.0.30"
+serde = {version = "1.0.137", features = ["derive"] }
