@@ -29,7 +29,10 @@
 //! assert!((yf - 42.21424933147).abs() < 1e-9);
 //!
 //! use yearfrac::is_leap_year;
-//! assert_eq!(is_leap_year(start.year()) as i32, 0)
+//! assert_eq!(is_leap_year(start.year()) as i32, 0);
+//! 
+//! let yf = DayCountConvention::US30360.yearfrac_signed(end, start);
+//! assert!((yf + 42.21388888889).abs() < 1e-9);
 //! ```
 
 use chrono::{NaiveDate, Datelike};
@@ -153,7 +156,7 @@ impl DayCountConvention {
         <Self as FromStr>::from_str(day_count_convention)
     }
 
-/// Calculates year fruction. Panics if start>end;
+/// Calculates year fruction.
 /// # Examples
 /// ```rust
 /// use yearfrac::DayCountConvention;
@@ -164,14 +167,33 @@ impl DayCountConvention {
 ///                .yearfrac(start, end);
 ///assert!((yf - 42.21388888889).abs() < 1e-9);
 /// ```
-    pub fn yearfrac(&self, start: NaiveDate, end: NaiveDate) -> f64 {
-        assert!(end >= start);
+    pub fn yearfrac(&self, mut start: NaiveDate, mut end: NaiveDate) -> f64 {
         if start == end {
             return 0.0 //edge case
+        } else if start > end {
+            (start, end) = (end, start)
         }
         let numerator = self.diff_dts(start, end);
         let denom = self.basis(start, end);
         numerator/denom
+    }
+/// Signed version of yearfrac function.
+/// Returns negative value if start > end
+/// # Examples
+/// ```rust
+/// use yearfrac::DayCountConvention;
+/// use chrono::NaiveDate;
+/// let end = NaiveDate::from_ymd(1978, 2, 28);
+/// let start = NaiveDate::from_ymd(2020, 5, 17);
+/// let yf = DayCountConvention::US30360.yearfrac_signed(start, end);
+///assert!((yf + 42.21388888889).abs() < 1e-9);
+/// ```
+    pub fn yearfrac_signed(&self, start: NaiveDate, end: NaiveDate) -> f64 {
+        if start > end {
+            -self.yearfrac(start, end)
+        } else {
+            self.yearfrac(start, end)
+        }
     }
 
     fn basis(&self, start: NaiveDate, end: NaiveDate) -> f64{
@@ -232,7 +254,7 @@ impl DayCountConvention {
             DayCountConvention::ActAct |
             DayCountConvention::Act360 |
             DayCountConvention::Act365 
-            => (start-end).num_days().abs() as f64,
+            => (end-start).num_days() as f64,
             DayCountConvention::US30360 => {
                 self.nasd360(start, end, 0, true)
             }
