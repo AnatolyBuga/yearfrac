@@ -36,4 +36,7 @@ assert!((yf - 42.21388888889).abs() < 1e-9);
 
  use yearfrac::is_leap_year;
  assert_eq!(is_leap_year(start.year()) as i32, 0)
+
+ let yf = DayCountConvention::US30360.yearfrac_signed(end, start);
+ assert!((yf + 42.21388888889).abs() < 1e-9);
  ```

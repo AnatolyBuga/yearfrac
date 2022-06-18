@@ -49,6 +49,7 @@ fn test_bad_input_str () {
     DayCountConvention::from_str("wrongvalue").unwrap();
 }
 
+/*
 #[test]
 #[should_panic]
 fn test_bad_dates () {
@@ -56,4 +57,27 @@ fn test_bad_dates () {
     let end = NaiveDate::from_ymd(2022, 5, 17);
     DayCountConvention::from_str("act/act").unwrap()
     .yearfrac(start, end);
+}
+*/
+
+#[test]
+fn test_start_after_end () {
+    let delta = 1e-9;
+
+    let end = NaiveDate::from_ymd(1978, 2, 28);
+    let start = NaiveDate::from_ymd(2020, 5, 17);
+    let yf = DayCountConvention::from_int(0).unwrap()
+                    .yearfrac(start, end);
+    assert!((yf - 42.21388888889).abs() < delta);
+}
+
+#[test]
+fn test_yearfrac_signed () {
+    let delta = 1e-9;
+
+    let end = NaiveDate::from_ymd(1978, 2, 28);
+    let start = NaiveDate::from_ymd(2020, 5, 17);
+    let yf = DayCountConvention::from_int(0).unwrap()
+                    .yearfrac_signed(start, end);
+    assert!((yf + 42.21388888889).abs() < delta);
 }
