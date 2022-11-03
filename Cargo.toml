@@ -11,6 +11,6 @@ documentation = "https://docs.rs/yearfrac/"
 keywords = ["date", "year", "fruction"]
 
 [dependencies]
-chrono = "0.4.19"
+chrono = "0.4.22"
 thiserror = "1.0.30"
 serde = {version = "1.0.137", features = ["derive"] }
