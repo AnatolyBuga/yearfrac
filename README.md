@@ -44,4 +44,4 @@ assert!((yf - 42.21388888889).abs() < 1e-9);
  # Acknowledgements
  
  ### [Ultima](https://ultimabi.uk/) 
- ### [Python FRTB User Guide](https://ultimabi.uk/ultima) 
+ ### [Python FRTB User Guide](https://ultimabi.uk/frtb-book) 
