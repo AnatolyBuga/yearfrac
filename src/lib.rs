@@ -36,7 +36,6 @@
 //! ```
 
 use chrono::{Datelike, NaiveDate};
-use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use thiserror::Error;
 
@@ -53,10 +52,8 @@ pub fn is_leap_year(year: i32) -> bool {
         false
     } else if year % 100 > 0 {
         true
-    } else if year % 400 == 0 {
-        true
     } else {
-        false
+         year % 400 == 0 
     }
 }
 
@@ -80,7 +77,7 @@ pub fn is_end_of_month(day: u32, month: u32, year: i32) -> bool {
 }
 
 #[derive(Hash, Clone, Copy, Debug)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
 pub enum DayCountConvention {
     US30360,
@@ -153,6 +150,7 @@ impl DayCountConvention {
     /// let yf = DayCountConvention::from_str("invalid str")?;
     /// # Ok::<(), DayCountConventionError>(())
     /// ```
+    #[allow(clippy::should_implement_trait)]
     pub fn from_str(day_count_convention: &str) -> Result<Self, DayCountConventionError> {
         <Self as FromStr>::from_str(day_count_convention)
     }
@@ -168,6 +166,7 @@ impl DayCountConvention {
     ///                .yearfrac(start, end);
     ///assert!((yf - 42.21388888889).abs() < 1e-9);
     /// ```
+    #[allow(clippy::comparison_chain)]
     pub fn yearfrac(&self, mut start: NaiveDate, mut end: NaiveDate) -> f64 {
         if start == end {
             return 0.0; //edge case

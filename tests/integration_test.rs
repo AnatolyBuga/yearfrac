@@ -1,5 +1,4 @@
 use chrono::NaiveDate;
-use yearfrac;
 use yearfrac::DayCountConvention;
 
 #[test]
@@ -29,8 +28,8 @@ fn test_accuracy() {
         .yearfrac(start, end);
     assert!((yf - 42.21944444444).abs() < delta);
 
-    let start = NaiveDate::from_ymd(1993, 12, 02);
-    let end = NaiveDate::from_ymd(2022, 04, 18);
+    let start = NaiveDate::from_ymd(1993, 12, 2);
+    let end = NaiveDate::from_ymd(2022, 4, 18);
     let yf = DayCountConvention::from_str("nasd30/360")
         .unwrap()
         .yearfrac(start, end);

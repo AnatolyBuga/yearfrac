@@ -16,7 +16,7 @@ Put this in your `Cargo.toml`:
 
 ```toml
 [dependencies]
-yearfrac = "0.1"
+yearfrac = {version="*", features=['serde', 'openapi']}
 ```
 
 ## Examples
