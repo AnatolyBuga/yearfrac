@@ -8,7 +8,7 @@ description = "Year fruction calculator for Rust"
 homepage = "https://github.com/AnatolyBug/yearfrac"
 repository = "https://github.com/AnatolyBug/yearfrac"
 documentation = "https://docs.rs/yearfrac/"
-keywords = ["date", "year", "fruction"]
+keywords = ["date", "datetime", "yearfraction"]
 
 [dependencies]
 chrono = "0.4.22"
