@@ -79,7 +79,9 @@ pub fn is_end_of_month(day: u32, month: u32, year: i32) -> bool {
     }
 }
 
-#[derive(Hash, Clone, Copy, Debug, Serialize, Deserialize)]
+#[derive(Hash, Clone, Copy, Debug)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
 pub enum DayCountConvention {
     US30360,
     ActAct,
