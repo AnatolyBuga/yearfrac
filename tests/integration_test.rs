@@ -11,6 +11,9 @@ fn test_accuracy() {
         .unwrap()
         .yearfrac(start, end);
     assert!((yf - 42.21388888889).abs() < delta);
+    let yf = DayCountConvention::default()
+        .yearfrac(start, end);
+    assert!((yf - 42.21388888889).abs() < delta);      
     let yf = DayCountConvention::from_int(1)
         .unwrap()
         .yearfrac(start, end);
@@ -34,6 +37,8 @@ fn test_accuracy() {
         .unwrap()
         .yearfrac(start, end);
     assert!((yf - 28.37777777778).abs() < delta);
+    let yf = DayCountConvention::default().yearfrac(start, end);
+    assert!((yf - 28.37777777778).abs() < delta);    
     let yf = DayCountConvention::from_str("act/act")
         .unwrap()
         .yearfrac(start, end);

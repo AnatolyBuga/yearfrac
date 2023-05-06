@@ -53,7 +53,7 @@ pub fn is_leap_year(year: i32) -> bool {
     } else if year % 100 > 0 {
         true
     } else {
-         year % 400 == 0 
+        year % 400 == 0
     }
 }
 
@@ -76,7 +76,7 @@ pub fn is_end_of_month(day: u32, month: u32, year: i32) -> bool {
     }
 }
 
-#[derive(Hash, Clone, Copy, Debug)]
+#[derive(Hash, Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
 pub enum DayCountConvention {
@@ -337,6 +337,12 @@ impl FromStr for DayCountConvention {
     }
 }
 
+impl Default for DayCountConvention {
+    fn default() -> Self {
+        DayCountConvention::US30360
+    }
+}
+
 #[derive(Debug, Error)]
 pub enum DayCountConventionError {
     #[error("Yearfrac: Invalid Value: {}. Has to be one of: nasd30/360, act/act, act360, act365, eur30/360 (from_str) 
@@ -345,4 +351,11 @@ pub enum DayCountConventionError {
 }
 
 #[cfg(test)]
-mod tests {}
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_default() {
+        assert_eq!(DayCountConvention::default(), DayCountConvention::US30360)
+    }
+}
